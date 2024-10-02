@@ -17,31 +17,38 @@
     function createPw($len){
 
         // setto la password a 0 prima della composizione dei caratteri
-        $pw: '';
+        $pw= '';
 
         // mi salvo i caratteri che deve contenere la pasword
         // suddividendoli mi assicuro che la pw peschi da ogni variabile
-        $lovercase : 'abcdefghijklmnopqrstuvwxyz';
-        $uppercase : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $numbers : '0123456789';
-        $symbols : '!@#$%^&*-+(){}[]~';
+        $lovercase = 'abcdefghijklmnopqrstuvwxyz';
+        $uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $numbers = '0123456789';
+        $symbols = '!@#$%^&*-+(){}[]~';
 
         // mi salvo i caratteri concatenati tutti assieme 
-        $allcharacters: $lovercase.$uppercase.$numbers.$symbols
+        $characters= $lovercase.$uppercase.$numbers.$symbols;
 
-        // creo un numero random che serva da indice per pescare un carattere casuale
-        $index = rand(0, strlen($allcharacters)-1)
+        // creo un ciclo per creare l'indice n volte (tante quante il numero passato dall'utente)
+        for ($i=0; $i < $len; $i++) { 
+
+            // creo un numero random che serva da indice per pescare un carattere casuale
+            $index = rand(0, strlen($characters)-1);
+
+            // salvo la nuova password, il "." serve per concatenare il vecchio valore al nuovo
+            $pw .= $characters[$index];
+        }
 
         // risultato è la password composta dai diversi caratteri
-        // return $pw;
+        return $pw;
 
     }
 
     // imposto a null il valore di length, in questo modo, quando non è ancora stato passato un numero, non mi dà errore
-    $length = null
+    $length = null;
 
     // controlo se mi viene passato (settato) il numero
-    if(isset$_GET['pwLength']){
+    if (isset($_GET['pwLength'])) {
 
         // intval mi serve per avere "davvero" un numero (come parseInt)
         $length = intval($_GET['pwLength']);
@@ -49,7 +56,7 @@
         // considero il numero solo se entra in questo range >8 e <16
         if($length >= 8 && $length <= 16){
 
-            // $password = createPw($length)
+            $password = createPw($length);
 
         }
     }
@@ -84,6 +91,14 @@
                     <button type="submit" class="btn btn-outline-primary">Invia</button>
 
                 </form>
+
+                <hr class="mb-5">
+
+                <p class="fs-5 mb-3 text-primary">Ecco la tua password</p>
+
+                <h3 class="text-primary-emphasis">
+                    <?php echo $password; ?>
+                </h3>
 
             </div>
         </div>
