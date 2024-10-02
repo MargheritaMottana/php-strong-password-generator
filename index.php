@@ -44,6 +44,9 @@
 
     }
 
+    // imposto la password a null, così da poter fare un if in pagina (se non è null, allora mostro)
+    $password= null;
+
     // imposto a null il valore di length, in questo modo, quando non è ancora stato passato un numero, non mi dà errore
     $length = null;
 
@@ -92,13 +95,20 @@
 
                 </form>
 
-                <hr class="mb-5">
+                <!-- se la password è diversa da null, la mostro -->
+                <?php
+                    if ($password != null) {
+                ?>
+                    <hr class="mb-5">
 
-                <p class="fs-5 mb-3 text-primary">Ecco la tua password</p>
+                    <p class="fs-5 mb-3 text-primary">Ecco la tua password</p>
 
-                <h3 class="text-primary-emphasis">
-                    <?php echo $password; ?>
-                </h3>
+                    <h3 class="text-primary-emphasis">
+                        <?php echo $password; ?>
+                    </h3>
+                <?php
+                    }
+                ?>
 
             </div>
         </div>
